@@ -2,14 +2,17 @@
 '########## Stupboy 个人自定义函数库       #########
 '########## UPDATE 2015.08.18              #########
 '--函数汇总 及功能说明--
-'-1. SC              输出函数-
-'-2. caidan(a,b)     菜单输出函数,a为菜单名,b为"子菜单名$链接|子菜单$链接"的格式-
-'-3. LimitCheck(a)   权限检测函数，若无权限则终端输出-
-'-4. qx(a)           判断是否有权限，返回boolen值 TRUE OR FALSE-
-'-5. str_x(x,y)      字符补位函数x为原字符,y为位数不足用0补齐-
-'-6. date2str(x,y)   日期转字符函数，x为日期，y为类型，y为1则到日150801，y为2则到秒150801120025-
-'-7. DanHao(x)       单号生成函数，x为单号前缀，后连接当期日期【类型2】-
-'-8. getip()         获取IP函数-
+'-01. SC              输出函数-
+'-02. caidan(a,b)     菜单输出函数,a为菜单名,b为"子菜单名$链接|子菜单$链接"的格式-
+'-03. LimitCheck(a)   权限检测函数，若无权限则终端输出-
+'-04. qx(a)           判断是否有权限，返回boolen值 TRUE OR FALSE-
+'-05. str_x(x,y)      字符补位函数x为原字符,y为位数不足用0补齐-
+'-06. date2str(x,y)   日期转字符函数，x为日期，y为类型，y为1则到日150801，y为2则到秒150801120025,3则返回8位日期如20150801-
+'-07. DanHao(x)       单号生成函数，x为单号前缀，后连接当期日期【类型2】-
+'-08. getip()         获取IP函数-
+'-09. date2week()     日期转星期1-7
+'-10. date_thisweek() 获取当期日期所在周的周一日期
+'-11. date_preweek()  获取当期日期所在周上周周一日期
 '-待增加-
 '-函数明细列表-
 '-输出函数SC -
@@ -72,6 +75,8 @@ function date2str(x,y)
  date2str=a&str_x(month(x),2)&str_x(day(x),2)
  elseif y=2 then 
  date2str=a&str_x(month(x),2)&str_x(day(x),2)&str_x(hour(x),2)&str_x(minute(x),2)&str_x(second(x),2)
+ elseif y=3 then '-如果等于3则转为8位数日期格式年月日-
+ date2str=year(x)&str_x(month(x),2)&str_x(day(x),2)
  end if 
 end function
 '-单号生成函数-
@@ -92,5 +97,32 @@ strIPAddr = Request.ServerVariables("HTTP_X_FORWARDED_FOR")
 End If   
 getIP = Trim(Mid(strIPAddr, 1, 30))   
 End Function
-
+'-日期函数-
+'-日期转星期-
+Function date2week(a)
+If weekday(a,1)=1 Then
+xq=7
+Else 
+date2week=weekday(a,1)-1
+End If 
+End Function
+'-本周起始日期-
+Function date_thisweek(a)
+If weekday(a,1)=2 Then
+yy=a
+Else
+yy=a-date2week(a)+1
+End If 
+date_thisweek=date2str(yy,3)
+End Function 
+'-上周开始日期-
+Function date_preweek(a)
+If weekday(a,1)=2 Then
+gg=a
+Else
+gg=a-date2week(a)+1
+End If 
+date_preweek=date2str(gg-7,3)
+End Function 
+sc date_preweek(now())
 %>
