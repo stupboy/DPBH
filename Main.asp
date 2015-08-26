@@ -22,9 +22,10 @@
   <div class="panel-heading">商品基础资料</div>
   <div class="panel-body">
 <%
-	sql="select * from sys_goods"                    '查询商品基础资料库【范例】
+	sql="select * from v_jwy001 where 店名='"&session("RealName")&"' and rownum<10 "                    '查询商品基础资料库【范例】
+	sc sql
 	set rs=Server.CreateObject("ADODB.RecordSet")    '创建连接对象
-	rs.open sql,conn,1,1                             '打开连接字符
+	rs.open sql,conn1,1,1                             '打开连接字符
 	if rs.EOF then                                   '如果记录集为空
 	sc "NO answer!"                                  '则输出NO answer
 	else                                             '如果不为空则输出记录

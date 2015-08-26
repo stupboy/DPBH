@@ -3,7 +3,7 @@
 '-数据库连接文件-
 set conn=server.CreateObject("adodb.connection")
 '-".""为服务器地址、ST为连接数据库名称、sa为数据库用户名、PWD为数据库密码-
-ConnStr="server=.;driver={sql server};database=ST;uid=sa;pwd=!@#$%asdfg"
+ConnStr="server=.;driver={sql server};database=dpbh;uid=sa;pwd=!@#$%asdfg"
 conn.Open connstr
 '-如果连接出错则报错-
 If Err Then
@@ -13,7 +13,7 @@ If Err Then
   Response.End
 End If
 '-Oracle数据库-
-If Not IsObject(Conn) Then
+If Not IsObject(Conn1) Then
 Set Conn1 = Server.CreateObject("ADODB.Connection")
 myDSN = "Provider=OraOLEDB.Oracle;Data Source=242;User ID=neands3;PASSWORD=abc123;Persist Security Info=True"
 Conn1.Open myDSN
